@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root name="Java 小助手">
+
+	<node name="生成条码">
+		<node name="QR码" class="GenerateQRCode"></node>
+	</node>
+
+	<node name="吾爱小说" level="222">
+		<node name="23wx/顶点小说" class="Novel23WX"></node>
+	</node>
+
+	<node name="文件操纵">
+		<node name="文件后缀" class="FileSuffix"></node>
+	</node>
+
+</root>

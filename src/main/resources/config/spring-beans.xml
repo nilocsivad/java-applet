@@ -2,7 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-
+	<!-- <生成条码 /> -->
+	<bean id="GenerateQRCode" class="com.iam_vip.java_applet.pnl.code.GenerateQRCode" />
+	
+	
+	<!-- <吾爱小说 /> -->
+	<bean id="Novel23WX" class="com.iam_vip.java_applet.pnl.code.GenerateQRCode" />
+	
+	
+	<!-- <文件操纵 /> -->
+	<bean id="FileSuffix" class="com.iam_vip.java_applet.pnl.file.FileSuffix" />
 
 
 </beans>
