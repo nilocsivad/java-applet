@@ -86,7 +86,7 @@ public class JavaAppletFrame extends JFrame implements C, TreeSelectionListener 
 		
 		rightPanel.removeAll();
 		
-		JAPanel panel = ContextUtil.getInstance().getBean( key );
+		JABasePanel panel = ContextUtil.getInstance().getBean( key );
 		
 		JScrollPane p = new JScrollPane( panel );
 		p.setBorder( null );
@@ -104,7 +104,7 @@ public class JavaAppletFrame extends JFrame implements C, TreeSelectionListener 
 		int _h = screen.height - insets.top - insets.bottom;
 		this.setSize( _w, _h );
 		
-		JAPanel.panelHeight = _h - this.getInsets().top * 2;
+		JABasePanel.panelHeight = _h - this.getInsets().top * 2;
 		
 		int x = ( screen.width - _w ) / 2;
 		int y = insets.top;

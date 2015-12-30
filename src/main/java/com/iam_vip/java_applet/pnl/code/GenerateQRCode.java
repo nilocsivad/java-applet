@@ -34,10 +34,10 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
-import com.iam_vip.java_applet.JAPanel;
+import com.iam_vip.java_applet.JABasePanel;
 import com.iam_vip.java_applet.StartupApp;
 import com.iam_vip.java_applet.rs.u.DTUtil;
-import com.iam_vip.java_applet.zzui.JAButton;
+import com.iam_vip.java_applet.rs.zzui.JAButton;
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 
 import gnu.io.CommPort;
@@ -49,7 +49,7 @@ import gnu.io.SerialPortEventListener;
 /**
  * @author Colin
  */
-public class GenerateQRCode extends JAPanel implements ActionListener, SerialPortEventListener {
+public class GenerateQRCode extends JABasePanel implements ActionListener, SerialPortEventListener {
 	
 	/**
 	 * 

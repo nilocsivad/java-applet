@@ -19,16 +19,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.iam_vip.java_applet.JAPanel;
-import com.iam_vip.java_applet.zzui.JAButton;
-import com.iam_vip.java_applet.zzui.JATextField;
+import com.iam_vip.java_applet.JABasePanel;
+import com.iam_vip.java_applet.rs.zzui.JAButton;
+import com.iam_vip.java_applet.rs.zzui.JATextField;
 
 
 /**
  * @author Colin
  * 		
  */
-public class FileOption extends JAPanel implements ActionListener {
+public class FileOption extends JABasePanel implements ActionListener {
 	
 	/**
 	 * 

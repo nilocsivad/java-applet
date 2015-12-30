@@ -20,7 +20,7 @@ import com.iam_vip.java_applet.rs.c.C;
  * @author Administrator
  * 		
  */
-public class JAPanel extends JPanel implements C, DropTargetListener {
+public class JABasePanel extends JPanel implements C, DropTargetListener {
 	
 	
 	/**
@@ -36,12 +36,12 @@ public class JAPanel extends JPanel implements C, DropTargetListener {
 	/**
 	 * 
 	 */
-	public JAPanel() {}
+	public JABasePanel() {}
 	
 	/**
 	 * @param layout
 	 */
-	public JAPanel( LayoutManager layout ) {
+	public JABasePanel( LayoutManager layout ) {
 		super( layout );
 	}
 	

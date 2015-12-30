@@ -81,7 +81,8 @@ public class WelcomeDialog extends JDialog implements C {
 			l = l > 3000 ? 3000 - l : 100;
 			Thread.sleep( l );
 			
-			new JavaAppletFrame().display( this, treeData );
+			// new JavaAppletFrame().display( this, treeData );
+			new GridBagFrame().display( this );
 			
 		} // </parse-menu-xml>
 		
