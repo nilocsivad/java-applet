@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -37,11 +38,18 @@ import com.iam_vip.java_applet.JAPanel;
 import com.iam_vip.java_applet.StartupApp;
 import com.iam_vip.java_applet.rs.u.DTUtil;
 import com.iam_vip.java_applet.zzui.JAButton;
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
+
+import gnu.io.CommPort;
+import gnu.io.CommPortIdentifier;
+import gnu.io.SerialPort;
+import gnu.io.SerialPortEvent;
+import gnu.io.SerialPortEventListener;
 
 /**
  * @author Colin
  */
-public class GenerateQRCode extends JAPanel implements ActionListener {
+public class GenerateQRCode extends JAPanel implements ActionListener, SerialPortEventListener {
 	
 	/**
 	 * 
@@ -52,7 +60,7 @@ public class GenerateQRCode extends JAPanel implements ActionListener {
 	private static final int	BTN_ID_SAVE_AS		= 10001;
 													
 													
-	// InputStream is;
+	InputStream					is;
 	// FileWriter fw;
 	
 	
@@ -77,14 +85,14 @@ public class GenerateQRCode extends JAPanel implements ActionListener {
 	}
 	
 	
-	// private CommPortIdentifier[] comms = null;;
-	
-	
-	private JTextArea	textArea;
-	private JLabel		codeImgLbl;
-	private File		codeImgFile;
-						
-						
+	private CommPortIdentifier[]	comms	= null;;
+											
+											
+	private JTextArea				textArea;
+	private JLabel					codeImgLbl;
+	private File					codeImgFile;
+									
+									
 	/**
 	 * 
 	 */
@@ -135,6 +143,28 @@ public class GenerateQRCode extends JAPanel implements ActionListener {
 				button.addActionListener( this );
 				panel.add( button );
 			}
+			// {
+			// @SuppressWarnings( "unchecked" ) Enumeration< CommPortIdentifier > enums = CommPortIdentifier.getPortIdentifiers();
+			//
+			// List< CommPortIdentifier > tmp = new ArrayList< CommPortIdentifier >();
+			// List< String > list = new ArrayList< String >();
+			//
+			// while ( enums.hasMoreElements() ) {
+			// CommPortIdentifier port = enums.nextElement();
+			// if ( port.getPortType() == CommPortIdentifier.PORT_SERIAL ) {
+			// tmp.add( port );
+			// list.add( port.getName() );
+			// }
+			// }
+			//
+			// comms = tmp.toArray( new CommPortIdentifier[ 0 ] );
+			// String[] items = list.toArray( new String[ 0 ] );
+			//
+			// JComboBox< String > boxes = new JComboBox< String >( items );
+			// boxes.setPreferredSize( new Dimension( 100, 24 ) );
+			// boxes.addActionListener( this );
+			// panel.add( boxes );
+			// }
 			this.add( panel );
 		}
 	}
@@ -157,6 +187,15 @@ public class GenerateQRCode extends JAPanel implements ActionListener {
 					this.touchSaveAsButton( e );
 					break;
 			}
+			
+			return;
+		}
+		
+		if ( e.getSource() instanceof JComboBox ) {
+			
+			JComboBox< ? > boxes = ( JComboBox< ? > ) e.getSource();
+			
+			this.selectComboBox( boxes.getSelectedIndex() );
 		}
 		
 	}
@@ -275,100 +314,82 @@ public class GenerateQRCode extends JAPanel implements ActionListener {
 	/* (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
-	// public void actionPerformed( ActionEvent event ) {
-	//
-	// Object obj = event.getSource();
-	// if ( obj instanceof JComboBox ) {
-	//
-	// @SuppressWarnings( "unchecked" ) JComboBox< String > box = ( JComboBox< String > ) obj;
-	//
-	//
-	//
-	//
-	// try {
-	//
-	// CommPortIdentifier identifier = comms[ box.getSelectedIndex() ];
-	// CommPort port = identifier.open( "COM1", 1000 * 10 );
-	//
-	// if ( port instanceof SerialPort ) {
-	// SerialPort serial = ( SerialPort ) port;
-	//
-	// serial.setSerialPortParams( 9600, 8, 1, 0 );
-	// is = serial.getInputStream();
-	// serial.notifyOnDataAvailable( true );
-	// serial.addEventListener( this );
-	//
-	// System.out.println( "OK" );
-	// }
-	//
-	// }
-	// catch ( Exception e ) {
-	// try {
-	//
-	// StackTraceElement el = Thread.currentThread().getStackTrace()[ 0 ];
-	// fw.write( "------------ " + el.getClassName() + " -- " + el.getMethodName() + " -- " + e.getMessage() );
-	// el = Thread.currentThread().getStackTrace()[ 1 ];
-	// fw.write( "------------ " + el.getClassName() + " -- " + el.getMethodName() + " -- " + e.getMessage() );
-	// fw.flush();
-	// }
-	// catch ( IOException e1 ) {
-	// e1.printStackTrace();
-	// }
-	// e.printStackTrace();
-	// }
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	// }
-	//
-	// }
+	public void selectComboBox( int idx ) {
+		
+		try {
+			
+			CommPortIdentifier identifier = comms[ idx ];
+			CommPort port = identifier.open( "COM1", 1000 * 10 );
+			
+			if ( port instanceof SerialPort ) {
+				SerialPort serial = ( SerialPort ) port;
+				
+				serial.setSerialPortParams( 9600, 8, 1, 0 );
+				is = serial.getInputStream();
+				serial.notifyOnDataAvailable( true );
+				serial.addEventListener( this );
+				
+				System.out.println( "OK" );
+			}
+			
+		}
+		catch ( Exception e ) {
+			// try {
+			//
+			// StackTraceElement el = Thread.currentThread().getStackTrace()[ 0 ];
+			// fw.write( "------------ " + el.getClassName() + " -- " + el.getMethodName() + " -- " + e.getMessage() );
+			// el = Thread.currentThread().getStackTrace()[ 1 ];
+			// fw.write( "------------ " + el.getClassName() + " -- " + el.getMethodName() + " -- " + e.getMessage() );
+			// fw.flush();
+			// }
+			// catch ( IOException e1 ) {
+			// e1.printStackTrace();
+			// }
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 	/* (non-Javadoc)
 	 * @see gnu.io.SerialPortEventListener#serialEvent(gnu.io.SerialPortEvent)
 	 */
-	// public void serialEvent( SerialPortEvent event ) {
-	//
-	// byte[] buffer = new byte[ 1024 ];
-	//
-	// ByteOutputStream output = new ByteOutputStream();
-	//
-	// int len = 0;
-	// try {
-	//
-	//
-	// while ( ( len = is.read( buffer ) ) > 0 ) {
-	// output.write( buffer, 0, len );
-	// }
-	//
-	//
-	// String txt = new String( output.getBytes(), 0, output.size(), "GB2312" );
-	// System.out.println( txt );
-	// textArea.append( txt );
-	// output.close();
-	// }
-	// catch ( Exception e ) {
-	// try {
-	//
-	// StackTraceElement el = Thread.currentThread().getStackTrace()[ 0 ];
-	// fw.write( "------------ " + el.getClassName() + " -- " + el.getMethodName() + " -- " + e.getMessage() );
-	// el = Thread.currentThread().getStackTrace()[ 1 ];
-	// fw.write( "------------ " + el.getClassName() + " -- " + el.getMethodName() + " -- " + e.getMessage() );
-	// fw.flush();
-	// }
-	// catch ( IOException e1 ) {
-	// e1.printStackTrace();
-	// }
-	//
-	// }
-	//
-	// }
+	public void serialEvent( SerialPortEvent event ) {
+		
+		byte[] buffer = new byte[ 1024 ];
+		
+		ByteOutputStream output = new ByteOutputStream();
+		
+		int len = 0;
+		try {
+			
+			
+			while ( ( len = is.read( buffer ) ) > 0 ) {
+				output.write( buffer, 0, len );
+			}
+			
+			
+			String txt = new String( output.getBytes(), 0, output.size(), "GB2312" );
+			System.out.println( txt );
+			textArea.append( txt );
+			output.close();
+		}
+		catch ( Exception e ) {
+			// try {
+			//
+			// StackTraceElement el = Thread.currentThread().getStackTrace()[ 0 ];
+			// fw.write( "------------ " + el.getClassName() + " -- " + el.getMethodName() + " -- " + e.getMessage() );
+			// el = Thread.currentThread().getStackTrace()[ 1 ];
+			// fw.write( "------------ " + el.getClassName() + " -- " + el.getMethodName() + " -- " + e.getMessage() );
+			// fw.flush();
+			// }
+			// catch ( IOException e1 ) {
+			// e1.printStackTrace();
+			// }
+			
+		}
+		
+	}
 	
 	
 	
