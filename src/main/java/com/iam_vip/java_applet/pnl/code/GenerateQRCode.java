@@ -62,7 +62,9 @@ public class GenerateQRCode extends JAPanel implements ActionListener {
 	public GenerateQRCode() {
 		
 		super( new FlowLayout( FlowLayout.LEFT, 0, 0 ) );
-		this.setPreferredSize( new Dimension( PANEL_WIDTH, 600 ) );
+		this.setBorder( null );
+		
+		this.setPreferredSize( new Dimension( PANEL_WIDTH, panelHeight ) );
 		
 		this.initComponent();
 		
@@ -122,14 +124,14 @@ public class GenerateQRCode extends JAPanel implements ActionListener {
 			{
 				JAButton button = new JAButton( BTN_ID_MAKE_UP, "Make Up..." );
 				button.setToolTipText( "生成QR二维码" );
-				button.setPreferredSize( new Dimension( 100, 22 ) );
+				button.setPreferredSize( new Dimension( 100, 24 ) );
 				button.addActionListener( this );
 				panel.add( button );
 			}
 			{
 				JAButton button = new JAButton( BTN_ID_SAVE_AS, "Save As..." );
 				button.setToolTipText( "QR另存为" );
-				button.setPreferredSize( new Dimension( 100, 22 ) );
+				button.setPreferredSize( new Dimension( 100, 24 ) );
 				button.addActionListener( this );
 				panel.add( button );
 			}

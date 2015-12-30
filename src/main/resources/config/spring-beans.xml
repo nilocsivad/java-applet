@@ -4,14 +4,14 @@
 
 	<!-- <生成条码 /> -->
 	<bean id="GenerateQRCode" class="com.iam_vip.java_applet.pnl.code.GenerateQRCode" />
-	
-	
+
+
 	<!-- <吾爱小说 /> -->
 	<bean id="Novel23WX" class="com.iam_vip.java_applet.pnl.code.GenerateQRCode" />
-	
-	
+
+
 	<!-- <文件操纵 /> -->
-	<bean id="FileSuffix" class="com.iam_vip.java_applet.pnl.file.FileSuffix" />
+	<bean id="FileOption" class="com.iam_vip.java_applet.pnl.file.FileOption" />
 
 
 </beans>

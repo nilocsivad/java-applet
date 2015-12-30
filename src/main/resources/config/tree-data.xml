@@ -11,7 +11,7 @@
 	</node>
 
 	<node name="文件操纵">
-		<node name="文件后缀" class="FileSuffix"></node>
+		<node name="文件名" class="FileOption"></node>
 	</node>
 
 </root>

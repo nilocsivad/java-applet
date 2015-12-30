@@ -30,7 +30,7 @@ public class JAPanel extends JPanel implements C, DropTargetListener {
 														
 	protected static final Border	DEFAULT_BORDER		= BorderFactory.createLineBorder( Color.GRAY, 1 );
 														
-	protected static int			panelHeight			= 0;
+	protected static int			panelHeight			= 600;
 														
 														
 	/**

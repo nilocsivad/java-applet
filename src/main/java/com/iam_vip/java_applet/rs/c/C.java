@@ -11,7 +11,7 @@ public interface C {
 	
 	int		MAX_WIDTH		= 800;
 	int		TREE_WIDTH		= 200;
-	int		PANEL_WIDTH		= MAX_WIDTH - TREE_WIDTH - 30;
+	int		PANEL_WIDTH		= MAX_WIDTH - TREE_WIDTH - 60;
 							
 	String	APP_TITLE		= "Java 小助手";
 	String	ICON			= "/image/app-icon.png";

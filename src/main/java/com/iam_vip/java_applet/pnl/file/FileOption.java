@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -27,7 +28,7 @@ import com.iam_vip.java_applet.zzui.JATextField;
  * @author Colin
  * 		
  */
-public class FileSuffix extends JAPanel implements ActionListener {
+public class FileOption extends JAPanel implements ActionListener {
 	
 	/**
 	 * 
@@ -46,10 +47,12 @@ public class FileSuffix extends JAPanel implements ActionListener {
 	/**
 	 * 
 	 */
-	public FileSuffix() {
+	public FileOption() {
 		
-		super( new FlowLayout( FlowLayout.CENTER, 0, 0 ) );
+		super( new FlowLayout( FlowLayout.LEFT, 0, 0 ) );
 		this.setBorder( null );
+		
+		this.setPreferredSize( new Dimension( PANEL_WIDTH, panelHeight ) );
 		
 		this.initComponent();
 		
@@ -65,7 +68,12 @@ public class FileSuffix extends JAPanel implements ActionListener {
 		
 		{
 			JPanel panel = new JPanel( new FlowLayout( FlowLayout.LEFT, 0, 0 ) );
-			panel.setPreferredSize( new Dimension( PANEL_WIDTH, 170 ) );
+			int w = 0;
+			{
+				JLabel lblNewLabel = new JLabel("Files:");
+				w = lblNewLabel.getWidth();
+				panel.add(lblNewLabel);
+			}
 			{
 				txtPath = new JATextField( TXT_ID_PATH );
 				txtPath.setEditable( false );
@@ -74,15 +82,25 @@ public class FileSuffix extends JAPanel implements ActionListener {
 				txtPath.setDropTarget( drop );
 				panel.add( txtPath );
 			}
+			this.add( panel );
+		}
+		
+		{
+			JPanel emptyPanel = new JPanel( new FlowLayout( FlowLayout.LEFT, 0, 0 ) );
+			emptyPanel.setPreferredSize( new Dimension( PANEL_WIDTH, 6 ) );
+			this.add( emptyPanel );
+		}
+		
+		{
+			JPanel panel = new JPanel( new FlowLayout( FlowLayout.LEFT, 0, 0 ) );
 			{
 				JAButton button = new JAButton( BTN_ID_HELLO, "hello" );
+				button.setPreferredSize( new Dimension( 100, 24 ) );
 				button.addActionListener( this );
 				panel.add( button );
 			}
 			this.add( panel );
 		}
-		
-		this.setPreferredSize( new Dimension( PANEL_WIDTH, panelHeight ) );
 	}
 	
 	@Override
